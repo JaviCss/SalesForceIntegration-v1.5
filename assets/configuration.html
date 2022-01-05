@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="./css/configuration.css" />
+  <link rel="stylesheet" type="text/css" href="./css/notifications.css" />
+  <link rel="shortcut icon" href="./logo-small.png" type="image/x-icon" />
+  <!--STYLES-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous" />
+  <!--FONTS-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+  <!--ICONS-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" />
+</head>
+
+<body class="body">
+  <div class=" m-0 p-0">
+    <div class="row" style="min-height: 600px;">
+      <div class="nav-bar col-sm-3 mx-0 px-0">
+        <ul class="nav nav-pills flex-column px-4" id="pills-tab" role="tablist">
+          <h2 class="title os-16 px-3">Strongpoint Salesforce Integration <br> admin page</h2>
+
+          <li class="nav-item" role="presentation">
+            <a class=" nav-link text-start active os-12" id="pills-accounts" data-bs-toggle="pill"
+              href="#pills-accounts-select" role="tab" aria-controls="pills-profile" aria-selected="false">
+              Salesforce Credentials</a>
+          </li>
+
+          <li class="nav-item" role="presentation">
+            <a class=" nav-link text-start  os-12" id="pills-group" data-bs-toggle="pill"
+              href="#pills-group-configuration" role="tab" aria-controls="pills-group" aria-selected="false">
+              Group Configurations</a>
+          </li>
+        </ul>
+      </div>
+      <div class="content col-sm-9 mx-0 px-0">
+        <div class="tab-content pb-4" id="pills-tabContent">
+
+          <div class="tab-pane fade text-center " id="pills-group-configuration" role="tabpanel"
+            aria-labelledby="pills-group-configuration">
+            <div class="container">
+              <div class="row my-5 justify-content-evenly">
+                <div class='col-4 mx-5 px-0'>
+                  <h3 class="py-2  os-16 title w-100 mx-auto">Allow these Zendesk groups to request approval</h3>
+                  <div class="d-flex">
+                    <select class="os-14" name="select-groups" id="select-groups"></select>
+                    <button type="button" class="btn-add-group" onclick="addGroup()">+</button>
+                  </div>
+                  <span id="errorBundle" class="help-block error"></span>
+                  <div id="groups-request" class='groups-request'>
+                    <ul class='groups-request-list my-0 py-2'>
+                    </ul>
+                  </div>
+                </div>
+                <div class='col-4 mx-5 px-0'>
+                  <h3 class="py-2  os-16 title w-100 mx-auto">Allow these Zendesk groups to approval</h3>
+                  <div class="d-flex">
+                    <select class="os-14" name="select-groups" id="select-groups-2"></select>
+                    <button type="button" class="btn-add-group" onclick="addGroup2()">+</button>
+                  </div>
+                  <span id="errorBundle" class="help-block error"></span>
+                  <div id="groups-approval" class='groups-approval'>
+                    <ul class='groups-approval-list my-0 py-2'>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row my-5  justify-content-evenly">
+                <div class='col-6 mx-5 px-0'>
+                  <h3 class="py-2  os-16 title w-100 mx-auto">Approval process</h3>
+                  <div class="d-flex">
+                    <div class="custom-select-wrapper">
+                      <div class="custom-select">
+                        <div class="custom-select__trigger"><span>SP Approval In Zendesk</span>
+                          <div class="arrow"></div>
+                        </div>
+                        <div class="custom-options">
+                          <span class="custom-option selected" data-value="SP Approval In Zendesk">SP Approval In
+                            Zendesk</span>
+                          <span class="custom-option" data-value="SP Approval In Salesforce">SP Approval In
+                            Salesforce</span>
+                          <span class="custom-option" data-value="No Approval Needed">No Approval Needed</span>
+                          <span id="default" class="custom-option " data-value="">Not set</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="loader" class="loader mx-3 my-auto">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade text-center show active " id="pills-accounts-select" role="tabpanel"
+            aria-labelledby="pills-accounts-select">
+            <div class="container p-0">
+              <div class="row header-acc mx-auto mt-4">
+                <div class="col-7 d-flex justify-content-end">
+                  <h3 class="py-2  os-16 header-acc-title  text-start ">Loguin with Salesforce</h3>
+                </div>
+                <div class="col-5 d-flex justify-content-end">
+                  <div class="d-flex" id="content"></div>
+                  <!--loguin sf
+                  <script id="start-hdbs" type="text/x-handlebars-template">
+                      <a href="https://server-sf.herokuapp.com/auth/salesforce?domain={{domain}}"  target="_blank" >
+                        
+                    </script>    
+                      
+                      -->
+                  <button id="start-auth" class="btn-large btn-primary m-auto">
+                    <i class="fas fa-sign-in-alt mx-2"></i>Login</button>
+
+
+                  <button class="btn-large btn-primary m-auto" id="check-token"> check token</button>
+
+                  <script id="start_auth-hdbs" type="text/x-handlebars-template">
+                      <iframe src="https://server-sf.herokuapp.com/auth/token?domain={{domain}}" frameborder="0"></iframe>    
+                  </script>
+
+
+
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="url"></div>
+
+
+
+
+
+  <!--HANDLEBAR-->
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@4.3.3/dist/handlebars.min.js"></script>
+  <!--JQUERY-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous"></script>
+  <!--BOOTSTRAP-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+  <!--ZENDESK-->
+  <script type="text/javascript"
+    src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>
+
+
+  <script src="js/configuration.js" type="module"></script>
+
+
+</body>
+
+</html>
